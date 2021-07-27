@@ -1,20 +1,13 @@
 {
-  "name": "node-hello",
+  "name": "docker_web_app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Node.js on Docker",
+  "author": "Aruna Nerella <arunanerellamail@gmail.com>",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/johnpapa/node-hello.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/johnpapa/node-hello/issues"
-  },
-  "homepage": "https://github.com/johnpapa/node-hello#readme"
+  "dependencies": {
+    "express": "^4.16.1"
+  }
 }
