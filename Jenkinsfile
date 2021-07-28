@@ -9,7 +9,7 @@ pipeline {
         //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
         AWS_CREDENTIALS_ID = 'awsCredentials'
         APP_HOST_USER = "ubuntu"
-        APP_HOST_NAME = "ec2-52-54-71-192.compute-1.amazonaws.com"
+        APP_HOST_NAME = "172.31.14.66"
     }
    
     stages {
