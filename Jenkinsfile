@@ -8,6 +8,8 @@ pipeline {
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
         AWS_CREDENTIALS_ID = 'awsCredentials'
+        APP_HOST_USER = "ubuntu"
+        APP_HOST_NAME = "ec2-52-54-71-192.compute-1.amazonaws.com"
     }
    
     stages {
@@ -42,6 +44,17 @@ pipeline {
           docker.withRegistry("https://${REPOSITORY_URI}", "ecr:us-east-1:${AWS_CREDENTIALS_ID}") {
             dockerImage.push()
           }
+        }
+      }
+    }
+
+    // Uploading Docker images into AWS ECR
+    stage('Deploy to app host') {
+     steps{  
+        script {
+          sh "scp deploy.sh ${APP_HOST_USER}@${APP_HOST_NAME}:~/"
+          sh "ssh ${APP_HOST_USER}@${APP_HOST_NAME} \"chmod +x deploy.sh\""
+          sh "ssh ${APP_HOST_USER}@${APP_HOST_NAME} ./deploy.ssh"
         }
       }
     }
