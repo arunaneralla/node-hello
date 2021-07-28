@@ -40,7 +40,7 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
         script {
-          sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+          //sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${IMAGE_TAG}"
           docker.withRegistry("https://${REPOSITORY_URI}", "ecr:us-east-1:${AWS_CREDENTIALS_ID}") {
             dockerImage.push()
           }
