@@ -9,7 +9,7 @@ pipeline {
         //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
         AWS_CREDENTIALS_ID = 'awsCredentials'
         APP_HOST_USER = "ubuntu"
-        APP_HOST_NAME = "52.54.71.192"
+        APP_HOST_NAME = "172.31.12.207"
     }
    
     stages {
@@ -54,7 +54,7 @@ pipeline {
         script {
           sh "scp deploy.sh ${APP_HOST_USER}@${APP_HOST_NAME}:~/"
           sh "ssh ${APP_HOST_USER}@${APP_HOST_NAME} \"chmod +x deploy.sh\""
-          sh "ssh ${APP_HOST_USER}@${APP_HOST_NAME} ./deploy.ssh"
+          sh "ssh ${APP_HOST_USER}@${APP_HOST_NAME} ./deploy.sh"
         }
       }
     }
