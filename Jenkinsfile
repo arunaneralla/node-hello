@@ -8,7 +8,7 @@ pipeline {
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
         AWS_CREDENTIALS_ID = 'awsCredentials'
-        APP_HOST_USER = "root"
+        APP_HOST_USER = "ubuntu"
         APP_HOST_NAME = "52.54.71.192"
     }
    
