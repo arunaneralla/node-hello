@@ -7,6 +7,7 @@ pipeline {
         IMAGE_TAG="202107"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
+        AWS_CREDENTIALS_ID = 'awsCredentials'
     }
    
     stages {
@@ -37,8 +38,10 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-                sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+            sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+            docker.withRegistry("https://${REPOSITORY_URI}", "ecr:us-east-1:${AWS_CREDENTIALS_ID}") {
+            dockerImage.push()
+            //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
          }
         }
       }
