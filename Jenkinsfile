@@ -38,12 +38,13 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-            sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-            withAWS(role:'container-images-ro', roleAccount:'${AWS_ACCOUNT_ID}', externalId: '', duration: 900, roleSessionName: 'jenkins-session') {
+            /*withAWS(role:'container-images-ro', roleAccount:'${AWS_ACCOUNT_ID}', externalId: '', duration: 900, roleSessionName: 'jenkins-session') {
               docker.withRegistry("https://${REPOSITORY_URI}", "ecr:us-east-1:${AWS_CREDENTIALS_ID}") {
               dockerImage.push()
-            }
-            //sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+            }*/
+            eval $(aws ecr get-login --region "$AWS_REGION" --no-include-email)
+            sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
+            sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
          }
         }
       }
