@@ -6,7 +6,7 @@ pipeline {
         IMAGE_REPO_NAME="container-images"
         IMAGE_TAG="202107"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-        GIT_URL = "https://github.com/arunaneralla/node-hello.git"
+        //GIT_URL = "https://github.com/arunaneralla/node-hello.git"
     }
    
     stages {
@@ -20,7 +20,7 @@ pipeline {
       //Checkout SCM
       stage('Cloning Git') {
         steps {
-          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: '${GIT_URL}']]])     
+          checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/arunaneralla/node-hello.git']]])     
         }
       }
   
